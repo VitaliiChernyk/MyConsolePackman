@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
+
     public class Position
     {
         public int PosX { get; set; }
@@ -16,52 +17,102 @@ namespace Game
     class Program
     {
         public static List<Position> squarePos = new List<Position>();
+        public static int xP = 0, yP = 0;
+        public static int xE = 20, yE = 20;
         static void Main(string[] args)
         {
+            ConsoleKey[] enemyWay = new[] { ConsoleKey.UpArrow, ConsoleKey.DownArrow, ConsoleKey.LeftArrow, ConsoleKey.RightArrow };
+            int maxFieldX = 30, maxFieldY = 30;
+            Random wayRnd = new Random();
+            Console.SetWindowSize(maxFieldX, maxFieldY);
             const char toWrite = '*';
-            int x = 0, y = 0;
-            Write(toWrite);
+            const char enemyWrite = '-';
+
+            Write(toWrite,xP,yP);
+            //WriteEnemy(enemyWrite,xE,yE);
             while (true)
             {
+                //checkKey(enemyWay[wayRnd.Next(enemyWay.Length)], xE, yE);
+                //WriteEnemy(enemyWrite,xE,yE);
                 ConsoleKeyInfo keyInfo = Console.ReadKey();
-                switch (keyInfo.Key)
-                {
-                    case ConsoleKey.DownArrow:
-                        if (!checkPosition(x, y+1))
-                            y++;
-                        //else
-                        //    y--;
-                        break;
-                    case ConsoleKey.UpArrow:
+                checkKey(keyInfo.Key, xP, yP);
+                //switch (keyInfo.Key)
+                //{
+                //    case ConsoleKey.DownArrow:
+                //        if (!checkPosition(x, y + 1))
+                //            y++;
 
-                        if (y > 0)
-                        {
-                            if (!checkPosition(x, y-1))
-                                y--;
-                        }
-                        break;
-                    case ConsoleKey.LeftArrow:
-                        if (x > 0)
-                        {
-                            if (!checkPosition(x--, y))
-                                x--;
-                        }
-                        break;
-                    case ConsoleKey.RightArrow:
-                        if (!checkPosition(x+1, y))
-                            x++;
-                        break;
-                }
-                Write(toWrite, x, y);
+                //        break;
+                //    case ConsoleKey.UpArrow:
+
+                //        if (y > 0)
+                //        {
+                //            if (!checkPosition(x, y - 1))
+                //                y--;
+                //        }
+                //        break;
+                //    case ConsoleKey.LeftArrow:
+                //        if (x > 0)
+                //        {
+                //            if (!checkPosition(x - 1, y))
+                //                x--;
+                //        }
+                //        break;
+                //    case ConsoleKey.RightArrow:
+                //        if (!checkPosition(x + 1, y))
+                //            x++;
+                //        break;
+                //}
+                Write(toWrite, xP, yP);
             }
 
         }
 
-        public static void Write(char toWrite, int x = 0, int y = 0)
+        public static void checkKey(ConsoleKey consoleKey, int x, int y)
+        {
+            switch (consoleKey)
+            {
+                case ConsoleKey.DownArrow:
+                    if (!checkPosition(x, y + 1))
+                        y++;
+                    break;
+                case ConsoleKey.UpArrow:
+                    if (y > 0)
+                    {
+                        if (!checkPosition(x, y - 1))
+                            y--;
+                    }
+                    break;
+                case ConsoleKey.LeftArrow:
+                    if (x > 0)
+                    {
+                        if (!checkPosition(x - 1, y))
+                            x--;
+                    }
+                    break;
+                case ConsoleKey.RightArrow:
+                    if (!checkPosition(x + 1, y))
+                        x++;
+                    break;
+            }
+        }
+        public static void WriteEnemy(char enemy, int x , int y)
         {
             try
             {
-                if (x >= 0 && y >= 0)
+                Console.SetCursorPosition(x, y);
+                Console.Write(enemy);
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+        public static void Write(char toWrite, int x, int y)
+        {
+            try
+            {
+                if ((x >= 0 && y >= 0))
                 {
                     Console.Clear();
                     PrintSquare();
@@ -75,7 +126,7 @@ namespace Game
             }
         }
 
-        public static bool checkPosition(int x, int y)
+        public static bool checkPosition( int x, int y)
         {
             bool contains = false;
             foreach (Position item in squarePos)
