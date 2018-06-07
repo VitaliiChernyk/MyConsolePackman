@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{8AE48D4A-4DBE-4C01-A8CB-BABE16609E6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunPackman", "RunPackman\RunPackman.csproj", "{26BFB65D-6E78-4D59-8417-4B9384987620}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8AE48D4A-4DBE-4C01-A8CB-BABE16609E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AE48D4A-4DBE-4C01-A8CB-BABE16609E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AE48D4A-4DBE-4C01-A8CB-BABE16609E6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26BFB65D-6E78-4D59-8417-4B9384987620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26BFB65D-6E78-4D59-8417-4B9384987620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26BFB65D-6E78-4D59-8417-4B9384987620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26BFB65D-6E78-4D59-8417-4B9384987620}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
