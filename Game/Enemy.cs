@@ -9,12 +9,20 @@ namespace Game
     public class Enemy : IMovingFigure
     {
         const char enemyView = '-';
+        ConsoleKey[] enemyWay = new[] {
+            ConsoleKey.UpArrow, ConsoleKey.DownArrow, ConsoleKey.LeftArrow, ConsoleKey.RightArrow
+        };
         int xEnemy, yEnemy, xEnemyPrevious, yEnemyPrevious;
         public Enemy(int x, int y)
         {
-            xEnemy = x;
-            yEnemy = y;
+            xEnemyPrevious = xEnemy = x;
+            yEnemyPrevious = yEnemy = y;
         }
+        public ConsoleKey GetEnemyWay(int index)
+        {
+            return enemyWay[index];
+        }
+        public int EnemyWayLength { get { return enemyWay.Length; } }
         public char getFigure { get { return enemyView; } }
         public int XFigure
         {

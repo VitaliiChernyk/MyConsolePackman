@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Game;
+using System.Threading;
 namespace RunPackman
 {
     class Program
@@ -13,18 +14,19 @@ namespace RunPackman
         {
             Packman packman = new Packman(0, 0);
             Enemy enemy = new Enemy(5, 5);
+            //write Enemy
             WriteEnemy(enemy);
-            
             //write packman
             Write(packman.getFigure, packman.XFigure, packman.YFigure, packman.XFigurePrevious, packman.YFigurePrevious);
-            
+
             while (true)
             {
                 ConsoleKey pressedKey = Console.ReadKey().Key;
                 packman.XFigure = checkKeyX(pressedKey, packman.XFigure, packman.YFigure);
                 packman.YFigure = checkKeyY(pressedKey, packman.YFigure, packman.XFigure);
                 //write packman
-                Write(packman.getFigure, packman.XFigure, packman.YFigure,packman.XFigurePrevious,packman.YFigurePrevious);
+                Write(packman.getFigure, packman.XFigure, packman.YFigure, packman.XFigurePrevious, packman.YFigurePrevious);
+
             }
         }
         public static int checkKeyX(ConsoleKey consoleKey, int x, int y)
@@ -71,7 +73,6 @@ namespace RunPackman
                 {
                     Console.SetCursorPosition(xPrevious, yPrevious);
                     Console.Write(' ');
-                    //Console.Clear();
                     blocks.PrintBlocks();
                     Console.SetCursorPosition(x, y);
                     Console.Write(toWrite);
@@ -84,12 +85,25 @@ namespace RunPackman
         }
         public static void WriteEnemy(Enemy enemy)
         {
-            lock (enemy)
+            Random random = new Random();
+            ConsoleKey enemyWay = ConsoleKey.RightArrow;
+            Thread thread = new Thread(delegate ()
             {
                 Write(enemy.getFigure, enemy.XFigure, enemy.YFigure, enemy.XFigurePrevious, enemy.YFigurePrevious);
-                //Console.SetCursorPosition(enemy.XFigure, enemy.YFigure);
-                //Console.Write(enemy.getFigure);
-            }
+                while (true)
+                {
+                    lock (enemy)
+                    {
+                        enemyWay = enemy.GetEnemyWay(random.Next(enemy.EnemyWayLength));
+                        enemy.XFigure = checkKeyX(enemyWay, enemy.XFigure, enemy.YFigure);
+                        enemy.YFigure = checkKeyY(enemyWay, enemy.YFigure, enemy.XFigure);
+                        Write(enemy.getFigure, enemy.XFigure, enemy.YFigure, enemy.XFigurePrevious, enemy.YFigurePrevious);
+                        Thread.Sleep(500);
+                    }
+                }
+            });
+            thread.IsBackground = true;
+            thread.Start();
         }
     }
 }
