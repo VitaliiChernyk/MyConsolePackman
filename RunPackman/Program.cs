@@ -11,15 +11,20 @@ namespace RunPackman
         static Blocks blocks = new Blocks();
         static void Main(string[] args)
         {
-            Packman packman = new Packman();
-            packman.XPackman = packman.YPackman = 0;
-            Write(packman.getPackman, packman.XPackman, packman.YPackman);
+            Packman packman = new Packman(0, 0);
+            Enemy enemy = new Enemy(5, 5);
+            WriteEnemy(enemy);
+            
+            //write packman
+            Write(packman.getFigure, packman.XFigure, packman.YFigure, packman.XFigurePrevious, packman.YFigurePrevious);
+            
             while (true)
             {
                 ConsoleKey pressedKey = Console.ReadKey().Key;
-                packman.XPackman = checkKeyX(pressedKey, packman.XPackman, packman.YPackman);
-                packman.YPackman = checkKeyY(pressedKey, packman.YPackman, packman.XPackman);
-                Write(packman.getPackman, packman.XPackman, packman.YPackman);
+                packman.XFigure = checkKeyX(pressedKey, packman.XFigure, packman.YFigure);
+                packman.YFigure = checkKeyY(pressedKey, packman.YFigure, packman.XFigure);
+                //write packman
+                Write(packman.getFigure, packman.XFigure, packman.YFigure,packman.XFigurePrevious,packman.YFigurePrevious);
             }
         }
         public static int checkKeyX(ConsoleKey consoleKey, int x, int y)
@@ -40,31 +45,33 @@ namespace RunPackman
             }
             return x;
         }
-        public static int checkKeyY(ConsoleKey consoleKey, int y,int x)
+        public static int checkKeyY(ConsoleKey consoleKey, int y, int x)
         {
             switch (consoleKey)
             {
                 case ConsoleKey.DownArrow:
                     if (!blocks.CkeckIfNotABlock(x, y + 1))
-                    y++;
+                        y++;
                     break;
                 case ConsoleKey.UpArrow:
                     if (y > 0)
                     {
                         if (!blocks.CkeckIfNotABlock(x, y - 1))
-                        y--;
+                            y--;
                     }
                     break;
             }
             return y;
         }
-        public static void Write(char toWrite, int x, int y)
+        public static void Write(char toWrite, int x, int y, int xPrevious, int yPrevious)
         {
             try
             {
                 if ((x >= 0 && y >= 0))
                 {
-                    Console.Clear();
+                    Console.SetCursorPosition(xPrevious, yPrevious);
+                    Console.Write(' ');
+                    //Console.Clear();
                     blocks.PrintBlocks();
                     Console.SetCursorPosition(x, y);
                     Console.Write(toWrite);
@@ -73,6 +80,15 @@ namespace RunPackman
             catch (Exception ex)
             {
 
+            }
+        }
+        public static void WriteEnemy(Enemy enemy)
+        {
+            lock (enemy)
+            {
+                Write(enemy.getFigure, enemy.XFigure, enemy.YFigure, enemy.XFigurePrevious, enemy.YFigurePrevious);
+                //Console.SetCursorPosition(enemy.XFigure, enemy.YFigure);
+                //Console.Write(enemy.getFigure);
             }
         }
     }

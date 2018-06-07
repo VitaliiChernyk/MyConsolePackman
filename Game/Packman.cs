@@ -6,20 +6,35 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public class Packman
+    public class Packman : IMovingFigure
     {
         const char packmanView = '*';
-        int xPackman, yPackman ;
-        public char getPackman { get { return packmanView; } }
-        public int XPackman
+        int xPackman, yPackman, xPackmanPrevious, yPackmanPrevious;
+        public Packman(int x, int y)
+        {
+            xPackmanPrevious -= xPackman = x;
+            yPackmanPrevious -= yPackman = y;
+        }
+        public char getFigure { get { return packmanView; } }
+        public int XFigure
         {
             get { return xPackman; }
-            set { xPackman = value; }
+            set
+            {
+                xPackmanPrevious = xPackman;
+                xPackman = value;
+            }
         }
-        public int YPackman
+        public int YFigure
         {
             get { return yPackman; }
-            set { yPackman = value; }
+            set
+            {
+                yPackmanPrevious = yPackman;
+                yPackman = value;
+            }
         }
+        public int XFigurePrevious { get { return xPackmanPrevious; } set { xPackmanPrevious = value; } }
+        public int YFigurePrevious { get { return yPackmanPrevious; } set { yPackmanPrevious = value; } }
     }
 }

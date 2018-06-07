@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blocks.cs" />
+    <Compile Include="Enemy.cs" />
+    <Compile Include="IMovingFigure.cs" />
     <Compile Include="Packman.cs" />
     <Compile Include="Positions.cs" />
     <Compile Include="Program.cs" />
