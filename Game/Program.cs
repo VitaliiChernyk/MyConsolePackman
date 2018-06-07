@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -28,7 +28,7 @@ namespace Game
             const char toWrite = '*';
             const char enemyWrite = '-';
 
-            Write(toWrite,xP,yP);
+            Write(toWrite, xP, yP);
             //WriteEnemy(enemyWrite,xE,yE);
             while (true)
             {
@@ -96,7 +96,7 @@ namespace Game
                     break;
             }
         }
-        public static void WriteEnemy(char enemy, int x , int y)
+        public static void WriteEnemy(char enemy, int x, int y)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace Game
             }
         }
 
-        public static bool checkPosition( int x, int y)
+        public static bool checkPosition(int x, int y)
         {
             bool contains = false;
             foreach (Position item in squarePos)

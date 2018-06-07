@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Game
 {
-    public class Enemy : IMovingFigure
+    public class Enemy : IMovingFigure, IDisposable
     {
         const char enemyView = '-';
         ConsoleKey[] enemyWay = new[] {
@@ -52,5 +54,23 @@ namespace Game
             get { return yEnemyPrevious; }
             set { yEnemyPrevious = value; }
         }
+        #region realization safedispose
+        bool disposed = false;
+        public void Dispose()
+        {
+            xEnemy= yEnemy= xEnemyPrevious= yEnemyPrevious = 0;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
+        public virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+            if (disposing)
+                handle.Dispose();
+            disposed = true;
+        }
+        #endregion
     }
 }
