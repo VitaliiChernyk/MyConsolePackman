@@ -34,13 +34,13 @@ namespace Game
                 Console.SetCursorPosition(8, i);
                 Console.Write('+');
             }
-            for (int i = 0; i < winSizeY; i++)
-            {
-                blocksPos.Add(new Positions() { PosX = 20, PosY = i });
-                Console.SetCursorPosition(20, i);
-                Console.Write('+');
-            }
-            blocksPos.OrderBy(o => o.PosX).OrderBy(o => o.PosY);
+            //for (int i = 0; i < winSizeY; i++)
+            //{
+            //    blocksPos.Add(new Positions() { PosX = 20, PosY = i });
+            //    Console.SetCursorPosition(20, i);
+            //    Console.Write('+');
+            //}
+            //blocksPos.OrderBy(o => o.PosX).OrderBy(o => o.PosY);
         }
 
 
